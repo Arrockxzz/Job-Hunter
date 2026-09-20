@@ -1,0 +1,8 @@
+{
+  "name": "Ankit Job Hunter AI",
+  "description": "Autonomous multi-agent job hunting and application system for Ankit Sharma (Chief Manager – Operations). 8 specialized AI agents handle job discovery, verification, JD analysis, 80%+ threshold filtering, ATS resume tailoring, direct portal application, and 09:30 AM/PM IST status updates.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
