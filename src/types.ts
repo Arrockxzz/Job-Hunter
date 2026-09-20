@@ -34,17 +34,78 @@ export interface WorkExperience {
   company: string;
   role: string;
   period: string;
+  startDate?: string;
+  endDate?: string;
+  isCurrent?: boolean;
+  employmentType?: 'Full-time' | 'Contract' | 'Part-time' | 'Freelance';
   location: string;
   achievements: string[];
+  toolsUsed?: string[];
 }
 
 export interface EducationItem {
+  id?: string;
   degree: string;
   institution: string;
+  specialization?: string;
   year: string;
+  startYear?: string;
+  endYear?: string;
+  courseType?: 'Full-time' | 'Part-time' | 'Correspondence / Distance';
+  gradingSystem?: 'Percentage' | 'CGPA';
+  grade?: string;
+}
+
+export interface LanguageSkill {
+  language: string;
+  proficiency: 'Beginner' | 'Conversational' | 'Proficient' | 'Fluent' | 'Native';
+  read: boolean;
+  write: boolean;
+  speak: boolean;
+}
+
+export interface PortfolioProject {
+  id: string;
+  title: string;
+  client?: string;
+  duration: string;
+  role: string;
+  description: string;
+  outcomes: string[];
+}
+
+export interface DetailedCertification {
+  id: string;
+  name: string;
+  issuingOrg: string;
+  issueYear: string;
+  credentialId?: string;
+  credentialUrl?: string;
+}
+
+export interface ResumeAttachment {
+  fileName: string;
+  fileSize: string;
+  uploadedAt: string;
+  fileType: string;
+  dataUrl?: string;
+  parsedText?: string;
+}
+
+export interface UserProfileAccount {
+  email: string;
+  name: string;
+  avatarUrl?: string;
+  provider: 'google';
+  lastLogin: string;
+  isSavedToCloud: boolean;
 }
 
 export interface CandidatePreferences {
+  candidateName?: string;
+  candidateCurrentRole?: string;
+  experienceYears?: number;
+  policyPresetName?: string;
   targetTitles: string[];
   targetDomains: string[];
   primaryLocation: string;
@@ -56,31 +117,53 @@ export interface CandidatePreferences {
   ignoreThresholdMax: number; // < 40%
   autoApplyMode: 'auto_pilot' | 'review' | 'manual_confirm';
   dailyScheduleTimes: string[]; // ["09:30 AM IST", "09:30 PM IST"]
+  preferredEmploymentTypes?: string[];
+  workModel?: 'Hybrid' | 'Remote' | 'On-site' | 'Any';
 }
 
 export interface MasterResume {
   fullName: string;
   email: string;
   phone: string;
+  alternatePhone?: string;
   location: string;
+  currentCity?: string;
+  currentPincode?: string;
+  preferredLocations?: string[];
+  willingToRelocate?: boolean;
+  dateOfBirth?: string;
+  gender?: 'Male' | 'Female' | 'Other' | 'Prefer not to say';
+  maritalStatus?: 'Single' | 'Married' | 'Other';
+  differentlyAbled?: 'No' | 'Yes';
   linkedin: string;
   github?: string;
   portfolio?: string;
   currentRole: string;
   currentCompany: string;
   experienceYears: number;
+  totalExperienceMonths?: number;
+  functionalArea?: string;
+  industry?: string;
   noticePeriod: string;
+  lastWorkingDay?: string;
+  currentCtc?: string;
   expectedCtc: string;
+  expectedCtcMin?: number;
+  expectedCtcMax?: number;
   headline: string;
   summary: string;
   skills: string[];
   coreCompetencies: string[];
   toolsAndPlatforms: string[];
+  languages?: LanguageSkill[];
   targetDomains: string[];
   targetRoles: string[];
   experience: WorkExperience[];
   education: EducationItem[];
   certifications: string[];
+  certificationsDetailed?: DetailedCertification[];
+  projects?: PortfolioProject[];
+  resumeAttachment?: ResumeAttachment;
   preferences: CandidatePreferences;
 }
 

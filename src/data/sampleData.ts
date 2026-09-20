@@ -15,14 +15,30 @@ export const ANKIT_SHARMA_MASTER_RESUME: MasterResume = {
   fullName: "Ankit Sharma",
   email: "ankit.sharma.ops@gmail.com",
   phone: "+91 98765 43210",
+  alternatePhone: "+91 98111 22334",
   location: "Hyderabad, Telangana, India (Open to Remote / Hybrid)",
+  currentCity: "Hyderabad",
+  currentPincode: "500081",
+  preferredLocations: ["Hyderabad", "Bengaluru", "Pune", "Mumbai", "Remote"],
+  willingToRelocate: true,
+  dateOfBirth: "1988-08-14",
+  gender: "Male",
+  maritalStatus: "Married",
+  differentlyAbled: "No",
   linkedin: "linkedin.com/in/ankit-sharma-operations",
   portfolio: "ankitsharma-ops.in",
   currentRole: "Chief Manager – Operations",
   currentCompany: "ICICI Lombard General Insurance",
   experienceYears: 10,
+  totalExperienceMonths: 126,
+  functionalArea: "Operations, Customer Experience & Transformation",
+  industry: "General Insurance / Banking & Financial Services (BFSI)",
   noticePeriod: "90 Days",
-  expectedCtc: "₹14 LPA and above (Target: ₹16 - ₹24 LPA)",
+  lastWorkingDay: "Negotiable to 45 Days on Early Buyout",
+  currentCtc: "₹14,50,000 PA (Fixed: ₹13.2L + Variable: ₹1.3L)",
+  expectedCtc: "₹18,00,000 - ₹24,00,000 PA",
+  expectedCtcMin: 14,
+  expectedCtcMax: 24,
   headline: "Chief Manager – Operations | Customer Experience, Process Transformation, STP Automation & Analytics Leader",
   summary: "Accomplished Operations and Customer Experience Leader with 10+ years of distinguished track record at ICICI Lombard General Insurance and leading BFSI institutions. Expertise in driving enterprise-scale operational excellence, Straight-Through Processing (STP) automation, omnichannel customer service transformation, analytics-driven claims/policy governance, and cross-functional team leadership across multi-location hubs.",
   skills: [
@@ -48,6 +64,11 @@ export const ANKIT_SHARMA_MASTER_RESUME: MasterResume = {
     "Power BI", "Tableau", "SQL (PostgreSQL / MSSQL)", "Python (Pandas, NumPy)",
     "Advanced Excel / VBA", "S CRM / Salesforce", "UCV (Unified Customer View)",
     "Muse Core Insurance Platform", "Genesys / Avaya IVR", "Jira / Confluence"
+  ],
+  languages: [
+    { language: "English", proficiency: "Fluent", read: true, write: true, speak: true },
+    { language: "Hindi", proficiency: "Fluent", read: true, write: true, speak: true },
+    { language: "Telugu", proficiency: "Conversational", read: false, write: false, speak: true }
   ],
   targetDomains: [
     "General Insurance",
@@ -77,7 +98,12 @@ export const ANKIT_SHARMA_MASTER_RESUME: MasterResume = {
       company: "ICICI Lombard General Insurance",
       role: "Chief Manager – Operations",
       period: "2021 - Present",
+      startDate: "2021-04",
+      endDate: "Present",
+      isCurrent: true,
+      employmentType: "Full-time",
       location: "Hyderabad, India",
+      toolsUsed: ["Power BI", "UCV", "Muse Platform", "SQL", "Lean Six Sigma"],
       achievements: [
         "Head operations for critical insurance policy issuance, endorsements, and customer query lifecycle, managing a high-performing unit of 65+ professionals.",
         "Pioneered Straight-Through Processing (STP) initiatives for retail and corporate insurance policies, boosting digital issuance rate by 42% and trimming TAT from 48 hours to under 2 hours.",
@@ -91,7 +117,12 @@ export const ANKIT_SHARMA_MASTER_RESUME: MasterResume = {
       company: "ICICI Lombard General Insurance",
       role: "Senior Manager – Operations & Process Excellence",
       period: "2017 - 2021",
+      startDate: "2017-06",
+      endDate: "2021-03",
+      isCurrent: false,
+      employmentType: "Full-time",
       location: "Hyderabad, India",
+      toolsUsed: ["Python (Pandas)", "SQL", "Genesys IVR", "Excel VBA"],
       achievements: [
         "Directed operational quality and workflow re-engineering across general insurance underwriting support and policy servicing.",
         "Automated recurring validation workflows using Python (Pandas) and SQL data pipelines, slashing manual audit effort by 350+ person-hours monthly.",
@@ -104,7 +135,12 @@ export const ANKIT_SHARMA_MASTER_RESUME: MasterResume = {
       company: "Leading Financial & Insurance Services Provider",
       role: "Manager – Operations & Customer Experience",
       period: "2014 - 2017",
+      startDate: "2014-07",
+      endDate: "2017-05",
+      isCurrent: false,
+      employmentType: "Full-time",
       location: "Hyderabad, India",
+      toolsUsed: ["CRM Ticketing", "Advanced Excel", "SQL"],
       achievements: [
         "Supervised day-to-day policy administration, customer onboarding documentation, and grievance redressal cells.",
         "Introduced structured escalation matrix and CRM ticketing governance, decreasing unresolved grievance backlog by 62%.",
@@ -114,14 +150,28 @@ export const ANKIT_SHARMA_MASTER_RESUME: MasterResume = {
   ],
   education: [
     {
+      id: "edu-1",
       degree: "Master of Business Administration (MBA) – Operations & Finance",
       institution: "Premier Management Institute, India",
-      year: "2012 - 2014"
+      specialization: "Operations Management & Financial Engineering",
+      year: "2012 - 2014",
+      startYear: "2012",
+      endYear: "2014",
+      courseType: "Full-time",
+      gradingSystem: "CGPA",
+      grade: "8.6 / 10"
     },
     {
-      degree: "Bachelor of Technology / Commerce (Honors)",
-      institution: "State University",
-      year: "2008 - 2012"
+      id: "edu-2",
+      degree: "Bachelor of Technology (B.Tech)",
+      institution: "State University of Technology",
+      specialization: "Computer Science & Engineering",
+      year: "2008 - 2012",
+      startYear: "2008",
+      endYear: "2012",
+      courseType: "Full-time",
+      gradingSystem: "Percentage",
+      grade: "78%"
     }
   ],
   certifications: [
@@ -130,7 +180,54 @@ export const ANKIT_SHARMA_MASTER_RESUME: MasterResume = {
     "Microsoft Certified: Power BI Data Analyst Associate",
     "Python for Financial Analytics & Automation (Specialization)"
   ],
+  certificationsDetailed: [
+    {
+      id: "cert-1",
+      name: "Lean Six Sigma Green Belt (Process Excellence & Operations)",
+      issuingOrg: "KPMG / ASQ India",
+      issueYear: "2019",
+      credentialId: "LSSGB-984210"
+    },
+    {
+      id: "cert-2",
+      name: "Licentiate in General Insurance",
+      issuingOrg: "Insurance Institute of India (III)",
+      issueYear: "2018",
+      credentialId: "III-LIC-74129"
+    },
+    {
+      id: "cert-3",
+      name: "Microsoft Certified: Power BI Data Analyst Associate",
+      issuingOrg: "Microsoft",
+      issueYear: "2022",
+      credentialId: "MS-PBI-88910"
+    }
+  ],
+  projects: [
+    {
+      id: "proj-1",
+      title: "Omnichannel STP Claims & Endorsement Overhaul",
+      client: "ICICI Lombard Operations Unit",
+      duration: "9 Months (2023)",
+      role: "Operations Lead & Solution Architect",
+      description: "Automated end-to-end policy endorsement and verification pipeline combining OCR document parsing and rule-based adjudication.",
+      outcomes: [
+        "Cut operational cycle TAT from 48 hours to under 2 hours",
+        "42% jump in straight-through processed endorsement requests"
+      ]
+    }
+  ],
+  resumeAttachment: {
+    fileName: "Ankit_Sharma_Operations_Chief_Manager_CV_2026.pdf",
+    fileSize: "184 KB",
+    uploadedAt: "Today, Verified Active",
+    fileType: "application/pdf"
+  },
   preferences: {
+    candidateName: "Ankit Sharma",
+    candidateCurrentRole: "Chief Manager – Operations",
+    experienceYears: 10,
+    policyPresetName: "Ankit Sharma (Operations & BFSI)",
     targetTitles: [
       "Chief Manager – Operations",
       "Senior Manager – Operations",
@@ -152,7 +249,9 @@ export const ANKIT_SHARMA_MASTER_RESUME: MasterResume = {
     reviewThresholdMin: 40,
     ignoreThresholdMax: 40,
     autoApplyMode: "auto_pilot",
-    dailyScheduleTimes: ["09:30 AM IST", "09:30 PM IST"]
+    dailyScheduleTimes: ["09:30 AM IST", "09:30 PM IST"],
+    preferredEmploymentTypes: ["Full-time", "Permanent"],
+    workModel: "Hybrid"
   }
 };
 

@@ -77,6 +77,87 @@ ZERO-FABRICATION VERIFIED WORK EXPERIENCE:
   return text;
 }
 
+export function formatMasterResumeText(masterResume: MasterResume): string {
+  let text = `================================================================================
+CANDIDATE MASTER RESUME / PORTAL CURRICULUM VITAE
+================================================================================
+Candidate Name: ${masterResume.fullName}
+Professional Headline: ${masterResume.headline}
+Email: ${masterResume.email} | Mobile: ${masterResume.phone}${masterResume.alternatePhone ? ` / ${masterResume.alternatePhone}` : ''}
+Current Location: ${masterResume.location} ${masterResume.currentPincode ? `(Pincode: ${masterResume.currentPincode})` : ''}
+LinkedIn: ${masterResume.linkedin} | Portfolio: ${masterResume.portfolio || 'N/A'}
+Current Role: ${masterResume.currentRole} at ${masterResume.currentCompany}
+Total Experience: ${masterResume.experienceYears} Years (${masterResume.totalExperienceMonths || masterResume.experienceYears * 12} Months)
+Current Compensation: ${masterResume.currentCtc || 'Not Disclosed'}
+Expected CTC: ${masterResume.expectedCtc}
+Notice Period: ${masterResume.noticePeriod} ${masterResume.lastWorkingDay ? `| Status: ${masterResume.lastWorkingDay}` : ''}
+Preferred Locations: ${(masterResume.preferredLocations || []).join(', ') || masterResume.location}
+Willing to Relocate: ${masterResume.willingToRelocate ? 'Yes' : 'No'}
+Functional Area: ${masterResume.functionalArea || 'Operations & Management'}
+Industry: ${masterResume.industry || 'BFSI & General Insurance'}
+
+================================================================================
+EXECUTIVE PROFILE SUMMARY
+================================================================================
+${masterResume.summary}
+
+================================================================================
+KEY OPERATIONAL COMPETENCIES & CORE SKILLS
+================================================================================
+${masterResume.skills.map(s => `• ${s}`).join('\n')}
+
+TOOLS & ENTERPRISE PLATFORMS:
+${masterResume.toolsAndPlatforms.map(t => `• ${t}`).join('\n')}
+
+================================================================================
+WORK EXPERIENCE
+================================================================================
+`;
+
+  masterResume.experience.forEach((exp, idx) => {
+    text += `\n[${idx + 1}] ${exp.role.toUpperCase()}
+Company: ${exp.company}
+Duration: ${exp.period} (${exp.employmentType || 'Full-time'}) | Location: ${exp.location}
+${exp.toolsUsed && exp.toolsUsed.length > 0 ? `Key Tools: ${exp.toolsUsed.join(', ')}\n` : ''}Key Responsibilities & Quantified Achievements:
+${exp.achievements.map(a => `  • ${a}`).join('\n')}
+`;
+  });
+
+  text += `\n================================================================================\nEDUCATION & ACADEMIC CREDENTIALS\n================================================================================\n`;
+  masterResume.education.forEach(ed => {
+    text += `• ${ed.degree} | ${ed.institution} (${ed.year})${ed.specialization ? ` - ${ed.specialization}` : ''}${ed.grade ? ` [Grade: ${ed.grade}]` : ''}\n`;
+  });
+
+  if (masterResume.certificationsDetailed && masterResume.certificationsDetailed.length > 0) {
+    text += `\n================================================================================\nLICENSES & CERTIFICATIONS\n================================================================================\n`;
+    masterResume.certificationsDetailed.forEach(c => {
+      text += `• ${c.name} - Issued by ${c.issuingOrg} (${c.issueYear})${c.credentialId ? ` [ID: ${c.credentialId}]` : ''}\n`;
+    });
+  } else if (masterResume.certifications && masterResume.certifications.length > 0) {
+    text += `\n================================================================================\nLICENSES & CERTIFICATIONS\n================================================================================\n`;
+    masterResume.certifications.forEach(c => {
+      text += `• ${c}\n`;
+    });
+  }
+
+  if (masterResume.languages && masterResume.languages.length > 0) {
+    text += `\n================================================================================\nLANGUAGES KNOWN\n================================================================================\n`;
+    masterResume.languages.forEach(l => {
+      text += `• ${l.language} (${l.proficiency}) - Read: ${l.read ? 'Yes' : 'No'} | Write: ${l.write ? 'Yes' : 'No'} | Speak: ${l.speak ? 'Yes' : 'No'}\n`;
+    });
+  }
+
+  if (masterResume.projects && masterResume.projects.length > 0) {
+    text += `\n================================================================================\nKEY PROJECTS & STRATEGIC INITIATIVES\n================================================================================\n`;
+    masterResume.projects.forEach(p => {
+      text += `• ${p.title} (${p.duration}) - ${p.role}\n  ${p.description}\n  Impact: ${p.outcomes.join('; ')}\n`;
+    });
+  }
+
+  text += `\n================================================================================\nGenerated via Job Hunter AI Master Profile\n================================================================================\n`;
+  return text;
+}
+
 export function formatShareableReferenceText(job: JobPosting): string {
   const naukriLine = job.naukriUrl ? `\n• Naukri Portal Link: ${job.naukriUrl}` : '';
   const linkedInLine = job.linkedInUrl ? `\n• LinkedIn Job Post: ${job.linkedInUrl}` : '';

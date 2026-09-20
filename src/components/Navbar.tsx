@@ -14,12 +14,15 @@ import {
   Bot
 } from 'lucide-react';
 
+import { UserProfileAccount } from '../types';
+
 interface NavbarProps {
   activeTab: 'dashboard' | 'jobs' | 'resume' | 'tracker' | 'settings';
   onSelectTab: (tab: 'dashboard' | 'jobs' | 'resume' | 'tracker' | 'settings') => void;
   candidateName: string;
   targetRole: string;
   appliedCount: number;
+  userAccount?: UserProfileAccount;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -28,6 +31,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   candidateName,
   targetRole,
   appliedCount,
+  userAccount,
 }) => {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-md">
@@ -130,16 +134,24 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
           </nav>
 
-          {/* Candidate Profile Pill */}
-          <div className="flex items-center gap-2">
+          {/* Candidate Profile Pill with Gmail Login */}
+          <button
+            onClick={() => onSelectTab('settings')}
+            className="flex items-center gap-2.5 rounded-xl border border-slate-800 bg-slate-900/60 p-1.5 hover:border-slate-700 transition-all text-left group"
+            title="Manage Gmail ID Login and Policies"
+          >
             <div className="hidden lg:flex flex-col text-right">
-              <span className="text-xs font-bold text-slate-200">{candidateName}</span>
-              <span className="text-[10px] text-cyan-400 font-mono">10+ Yrs • Operations</span>
+              <span className="text-xs font-bold text-slate-200 group-hover:text-cyan-300 transition-colors">
+                {candidateName}
+              </span>
+              <span className="text-[10px] text-cyan-400 font-mono truncate max-w-[150px]">
+                {userAccount?.email || 'Gmail Synced'}
+              </span>
             </div>
-            <div className="h-9 w-9 rounded-xl bg-indigo-950 border border-indigo-500/30 flex items-center justify-center text-xs font-extrabold text-cyan-300">
-              AS
+            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-indigo-900 to-slate-900 border border-indigo-500/40 flex items-center justify-center text-xs font-extrabold text-cyan-300 shadow">
+              {candidateName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() || 'AS'}
             </div>
-          </div>
+          </button>
 
         </div>
 

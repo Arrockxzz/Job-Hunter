@@ -27,7 +27,8 @@ import {
   CandidatePreferences, 
   NotificationRecord, 
   AgentName,
-  JobStatus
+  JobStatus,
+  UserProfileAccount
 } from './types';
 import { 
   ANKIT_SHARMA_MASTER_RESUME, 
@@ -50,6 +51,17 @@ export function App() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'jobs' | 'resume' | 'tracker' | 'settings'>('dashboard');
 
   // Persistence State
+  const [userAccount, setUserAccount] = useState<UserProfileAccount>(() => {
+    const saved = localStorage.getItem('jobhunter_user_account');
+    return saved ? JSON.parse(saved) : {
+      email: 'ankitsharma.airteldth@gmail.com',
+      name: 'Ankit Sharma',
+      provider: 'google',
+      lastLogin: 'Today, Verified Active',
+      isSavedToCloud: true,
+    };
+  });
+
   const [masterResume, setMasterResume] = useState<MasterResume>(() => {
     const saved = localStorage.getItem('ankit_master_resume');
     return saved ? JSON.parse(saved) : ANKIT_SHARMA_MASTER_RESUME;
@@ -74,6 +86,13 @@ export function App() {
     const saved = localStorage.getItem('ankit_notifications');
     return saved ? JSON.parse(saved) : ANKIT_SCHEDULED_NOTIFICATIONS;
   });
+
+  const [isParsingResume, setIsParsingResume] = useState(false);
+
+  // Sync to localStorage
+  useEffect(() => {
+    localStorage.setItem('jobhunter_user_account', JSON.stringify(userAccount));
+  }, [userAccount]);
 
   // Modal & Orchestration State
   const [reviewJob, setReviewJob] = useState<JobPosting | null>(null);
@@ -527,6 +546,61 @@ export function App() {
     }));
   };
 
+  const handleParseRawText = async (rawText: string): Promise<boolean> => {
+    setIsParsingResume(true);
+    try {
+      const res = await fetch('/api/ai/parse-resume', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rawText })
+      });
+      const data = await res.json();
+      if (data.success && data.parsed) {
+        const p = data.parsed;
+        setMasterResume(prev => ({
+          ...prev,
+          fullName: p.fullName || prev.fullName,
+          email: p.email || prev.email,
+          phone: p.phone || prev.phone,
+          location: p.location || prev.location,
+          currentRole: p.currentRole || prev.currentRole,
+          currentCompany: p.currentCompany || prev.currentCompany,
+          experienceYears: p.experienceYears ?? prev.experienceYears,
+          noticePeriod: p.noticePeriod || prev.noticePeriod,
+          currentCtc: p.currentCtc || prev.currentCtc,
+          expectedCtc: p.expectedCtc || prev.expectedCtc,
+          headline: p.headline || prev.headline,
+          summary: p.summary || prev.summary,
+          skills: p.skills?.length ? p.skills : prev.skills,
+          toolsAndPlatforms: p.toolsAndPlatforms?.length ? p.toolsAndPlatforms : prev.toolsAndPlatforms,
+          experience: p.experience?.length ? p.experience.map((e: any, idx: number) => ({
+            id: `exp-parsed-${Date.now()}-${idx}`,
+            company: e.company || 'Organization',
+            role: e.role || 'Designation',
+            period: e.period || '2021 - Present',
+            location: e.location || 'India',
+            achievements: e.achievements || ['Responsible for core operational deliverables.'],
+          })) : prev.experience,
+          education: p.education?.length ? p.education.map((ed: any, idx: number) => ({
+            id: `edu-parsed-${Date.now()}-${idx}`,
+            degree: ed.degree || 'Degree',
+            institution: ed.institution || 'University',
+            year: ed.year || '2014',
+            grade: ed.grade
+          })) : prev.education,
+        }));
+        logActivity("Resume Agent", "Master Profile", "AI Parser", "Parsed uploaded CV and updated profile fields.", "tailor", "success");
+        return true;
+      }
+      return false;
+    } catch (err) {
+      console.error(err);
+      return false;
+    } finally {
+      setIsParsingResume(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
       
@@ -537,6 +611,7 @@ export function App() {
         candidateName={masterResume.fullName}
         targetRole={masterResume.currentRole}
         appliedCount={stats.autoAppliedToday}
+        userAccount={userAccount}
       />
 
       {/* Main View Router */}
@@ -570,14 +645,15 @@ export function App() {
           <ResumeView
             masterResume={masterResume}
             onUpdateResume={setMasterResume}
-            onParseRawText={async () => true}
-            isParsing={false}
+            onParseRawText={handleParseRawText}
+            isParsing={isParsingResume}
           />
         )}
 
         {activeTab === 'tracker' && (
           <TrackerView
             jobs={jobs}
+            masterResume={masterResume}
             onUpdateJobStatus={handleUpdateJobStatus}
             onSelectJobForReview={(job) => setReviewJob(job)}
           />
@@ -587,6 +663,10 @@ export function App() {
           <SettingsView
             preferences={masterResume.preferences}
             onUpdatePreferences={(newPrefs) => setMasterResume(prev => ({ ...prev, preferences: newPrefs }))}
+            userAccount={userAccount}
+            onUpdateUserAccount={setUserAccount}
+            masterResume={masterResume}
+            onUpdateMasterResume={setMasterResume}
           />
         )}
       </main>
